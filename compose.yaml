@@ -1,0 +1,27 @@
+# Demo page of the component library, next to the other services (Traefik network).
+name: bonobo-ui
+
+services:
+  demo:
+    build: .
+    image: bonobo-ui:local
+    container_name: bonobo-ui
+    labels:
+      - traefik.enable=true
+      - traefik.docker.network=home-server_proxy
+      - traefik.http.routers.bonobo-ui.rule=Host(`ui.hmota.duckdns.org`)
+      - traefik.http.routers.bonobo-ui.entrypoints=websecure
+      - traefik.http.routers.bonobo-ui.tls=true
+      - traefik.http.routers.bonobo-ui.tls.certresolver=le
+      - traefik.http.routers.bonobo-ui.tls.domains[0].main=*.hmota.duckdns.org
+      - traefik.http.routers.bonobo-ui.middlewares=lan-only@docker
+      - traefik.http.services.bonobo-ui.loadbalancer.server.port=80
+    networks:
+      - proxy
+    mem_limit: 64m
+    restart: unless-stopped
+
+networks:
+  proxy:
+    external: true
+    name: home-server_proxy

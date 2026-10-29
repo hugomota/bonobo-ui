@@ -1,0 +1,181 @@
+/*
+ * Design tokens. Every component reads these variables, so a theme is just
+ * a different set of values on the element that has `data-bn-theme`.
+ *
+ * Themes follow the "one bold colour fills the screen" idea: background and
+ * text are the two theme colours, everything else is mixed from them.
+ */
+
+.bn-root {
+  /* Typography: thin, big numbers for display; system UI text elsewhere. */
+  --bn-font:
+    ui-sans-serif, -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', Roboto,
+    'Helvetica Neue', Arial, sans-serif;
+  --bn-font-display:
+    ui-sans-serif, -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', Roboto,
+    'Helvetica Neue', Arial, sans-serif;
+  --bn-text-xs: 0.75rem;
+  --bn-text-sm: 0.875rem;
+  --bn-text-md: 1rem;
+  --bn-text-lg: 1.25rem;
+  --bn-text-xl: 2rem;
+  --bn-text-2xl: 3rem;
+  --bn-text-3xl: 4.5rem;
+  --bn-tracking-caps: 0.12em;
+
+  /* Spacing (4 px grid) and shape. */
+  --bn-space-1: 4px;
+  --bn-space-2: 8px;
+  --bn-space-3: 12px;
+  --bn-space-4: 16px;
+  --bn-space-5: 24px;
+  --bn-space-6: 32px;
+  --bn-space-7: 48px;
+  --bn-radius-sm: 8px;
+  --bn-radius-md: 14px;
+  --bn-radius-lg: 22px;
+  --bn-radius-pill: 999px;
+  --bn-tap: 44px; /* smallest touch target */
+
+  /* Motion: small springy moves, never long. */
+  --bn-ease: cubic-bezier(0.2, 0.8, 0.2, 1);
+  --bn-ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --bn-dur-fast: 120ms;
+  --bn-dur: 220ms;
+  --bn-dur-slow: 360ms;
+
+  /* Playful list colours (tasks, tags, events, ink). */
+  --bn-red: #ff5d5d;
+  --bn-orange: #ff9a3c;
+  --bn-yellow: #ffcc33;
+  --bn-green: #34c47c;
+  --bn-teal: #1fb8b0;
+  --bn-blue: #4a7dff;
+  --bn-violet: #8a5cf6;
+  --bn-pink: #ff6fb1;
+  --bn-graphite: #4b4b52;
+
+  /* Derived colours: mixed from background (bg) and text (fg). */
+  --bn-fg-muted: color-mix(in srgb, var(--bn-fg) 62%, var(--bn-bg));
+  --bn-fg-subtle: color-mix(in srgb, var(--bn-fg) 40%, var(--bn-bg));
+  --bn-surface: color-mix(in srgb, var(--bn-fg) 6%, var(--bn-bg));
+  --bn-surface-2: color-mix(in srgb, var(--bn-fg) 11%, var(--bn-bg));
+  --bn-line: color-mix(in srgb, var(--bn-fg) 14%, var(--bn-bg));
+  --bn-heat-0: transparent;
+  --bn-heat-1: color-mix(in srgb, var(--bn-fg) 12%, var(--bn-bg));
+  --bn-heat-2: color-mix(in srgb, var(--bn-fg) 26%, var(--bn-bg));
+  --bn-heat-3: color-mix(in srgb, var(--bn-fg) 44%, var(--bn-bg));
+  --bn-heat-4: color-mix(in srgb, var(--bn-fg) 66%, var(--bn-bg));
+  --bn-shadow: 0 1px 2px rgb(0 0 0 / 0.06), 0 6px 20px rgb(0 0 0 / 0.08);
+  --bn-shadow-lg: 0 10px 40px rgb(0 0 0 / 0.22);
+  --bn-backdrop: rgb(0 0 0 / 0.4);
+  --bn-focus: color-mix(in srgb, var(--bn-accent) 70%, transparent);
+
+  font-family: var(--bn-font);
+  font-size: var(--bn-text-md);
+  line-height: 1.4;
+  color: var(--bn-fg);
+  background: var(--bn-bg);
+  -webkit-font-smoothing: antialiased;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Light paper (the default) and dark ink. */
+.bn-root,
+.bn-root[data-bn-theme='paper'] {
+  --bn-bg: #faf8f4;
+  --bn-fg: #1e1c19;
+  --bn-accent: #ff5a3c;
+  --bn-accent-fg: #ffffff;
+  --bn-paper: #fffdf8;
+  --bn-paper-dot: #e6e1d6;
+  color-scheme: light;
+}
+
+.bn-root[data-bn-theme='ink'] {
+  --bn-bg: #141519;
+  --bn-fg: #f2efe9;
+  --bn-accent: #ffb23f;
+  --bn-accent-fg: #1a1408;
+  --bn-paper: #1d1e23;
+  --bn-paper-dot: #33343b;
+  --bn-shadow: 0 1px 2px rgb(0 0 0 / 0.4), 0 6px 20px rgb(0 0 0 / 0.35);
+  --bn-backdrop: rgb(0 0 0 / 0.6);
+  color-scheme: dark;
+}
+
+/* Bold full-screen colour themes: the accent is the text colour. */
+.bn-root[data-bn-theme='tomato'] {
+  --bn-bg: #f2533b;
+  --bn-fg: #fff7f1;
+}
+.bn-root[data-bn-theme='lagoon'] {
+  --bn-bg: #12707f;
+  --bn-fg: #effbfb;
+}
+.bn-root[data-bn-theme='moss'] {
+  --bn-bg: #3f6e35;
+  --bn-fg: #f4f7ea;
+}
+.bn-root[data-bn-theme='plum'] {
+  --bn-bg: #4d2461;
+  --bn-fg: #fbf0ff;
+}
+.bn-root[data-bn-theme='sun'] {
+  --bn-bg: #ffc23a;
+  --bn-fg: #2a1f05;
+}
+.bn-root[data-bn-theme='midnight'] {
+  --bn-bg: #18224a;
+  --bn-fg: #eef1ff;
+}
+
+.bn-root:is(
+  [data-bn-theme='tomato'],
+  [data-bn-theme='lagoon'],
+  [data-bn-theme='moss'],
+  [data-bn-theme='plum'],
+  [data-bn-theme='sun'],
+  [data-bn-theme='midnight']
+) {
+  --bn-accent: var(--bn-fg);
+  --bn-accent-fg: var(--bn-bg);
+  --bn-paper: color-mix(in srgb, var(--bn-fg) 92%, var(--bn-bg));
+  --bn-paper-dot: color-mix(in srgb, var(--bn-fg) 70%, var(--bn-bg));
+  --bn-shadow: 0 1px 2px rgb(0 0 0 / 0.1), 0 6px 20px rgb(0 0 0 / 0.14);
+}
+.bn-root[data-bn-theme='sun'] {
+  color-scheme: light;
+}
+.bn-root:is(
+  [data-bn-theme='tomato'],
+  [data-bn-theme='lagoon'],
+  [data-bn-theme='moss'],
+  [data-bn-theme='plum'],
+  [data-bn-theme='midnight']
+) {
+  color-scheme: dark;
+}
+
+/* theme="auto": paper or ink, following the device. */
+@media (prefers-color-scheme: dark) {
+  .bn-root[data-bn-theme='auto'] {
+    --bn-bg: #141519;
+    --bn-fg: #f2efe9;
+    --bn-accent: #ffb23f;
+    --bn-accent-fg: #1a1408;
+    --bn-paper: #1d1e23;
+    --bn-paper-dot: #33343b;
+    --bn-shadow: 0 1px 2px rgb(0 0 0 / 0.4), 0 6px 20px rgb(0 0 0 / 0.35);
+    --bn-backdrop: rgb(0 0 0 / 0.6);
+    color-scheme: dark;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bn-root {
+    --bn-dur-fast: 0ms;
+    --bn-dur: 0ms;
+    --bn-dur-slow: 0ms;
+  }
+}
