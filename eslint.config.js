@@ -5,7 +5,7 @@ import globals from 'globals'
 import tseslint from 'typescript-eslint'
 
 export default tseslint.config(
-  { ignores: ['dist', 'dist-demo', 'node_modules'] },
+  { ignores: ['dist', 'dist-demo', 'storybook-static', 'node_modules'] },
   {
     files: ['**/*.{ts,tsx}'],
     extends: [js.configs.recommended, ...tseslint.configs.recommended],
@@ -15,5 +15,10 @@ export default tseslint.config(
       ...reactHooks.configs.recommended.rules,
       'react-refresh/only-export-components': ['warn', { allowConstantExport: true }],
     },
+  },
+  // Stories export a meta object and story objects, not components.
+  {
+    files: ['**/*.stories.tsx'],
+    rules: { 'react-refresh/only-export-components': 'off' },
   },
 )

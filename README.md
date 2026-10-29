@@ -53,6 +53,13 @@ after `npm run build:lib`.
 docker compose up -d --build     # after every change
 ```
 
+## Storybook
+
+`https://ui.hmota.duckdns.org/storybook/` (same container, static build,
+theme picker in the toolbar). Stories in `src/stories/`. Live editing:
+`npm run storybook` (port 6006) in the throwaway container with
+`-p 6006:6006`; static build: `npm run build:storybook`.
+
 ## Develop
 
 No Node on the host: npm runs in a throwaway container.

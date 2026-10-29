@@ -3,3 +3,4 @@ dist
 dist-demo
 .git
 .github
+storybook-static
