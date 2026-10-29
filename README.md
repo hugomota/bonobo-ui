@@ -12,6 +12,13 @@ Actions, Flow). Original code, icons and colours: no assets copied, and
   right = done, swipe left = delete), `ProgressRing`, `Tag`, `Fab`.
 - **Calendar** (Timepage): `MonthHeatmap` (days shaded by how busy they are),
   `WeekStrip`, `AgendaDay`, `EventItem`, `DisplayNumber`.
+- **Time zones** (Overlap): `TimeZoneCompare` (swipe sideways to move in
+  time, 15-min steps; each zone grey outside its available hours, light
+  inside its flexibility; long-press collapses a zone and leaves it out of
+  the graph; tap edits name/hours/flexibility/home; add by search with
+  optional `aliases`; date picker; copy a summary), `TimeZoneBubble`,
+  `OverlapGraph` (24 h in 15-min bars, accent where everyone is available).
+  Maths with `Intl` only (`src/components/timezones.ts`, DST-safe).
 - **Drawing** (Flow): `ToolPalette` (pen, pencil, marker, brush, eraser; the
   chosen one slides up), `ColorSwatches`, `Sketchpad` (canvas, undo/clear,
   PNG export).

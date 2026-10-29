@@ -30,6 +30,25 @@ export { WeekStrip, type WeekStripProps } from './components/WeekStrip'
 export { AgendaDay, type AgendaDayProps } from './components/AgendaDay'
 export { EventItem, type EventItemProps } from './components/EventItem'
 
+// Time zones.
+export {
+  TimeZoneCompare,
+  type TimeZoneCompareProps,
+  type TimeZoneCompareLabels,
+} from './components/TimeZoneCompare'
+export { TimeZoneBubble, type TimeZoneBubbleProps } from './components/TimeZoneBubble'
+export { OverlapGraph, type OverlapGraphProps } from './components/OverlapGraph'
+export {
+  availability,
+  zoneClock,
+  zoneColors,
+  formatZoneTime,
+  overlapSamples,
+  type Availability,
+  type ZoneConfig,
+  type OverlapSample,
+} from './components/timezones'
+
 // Drawing.
 export { ToolPalette, type ToolPaletteProps } from './components/ToolPalette'
 export { defaultTools, type Tool } from './components/tools'

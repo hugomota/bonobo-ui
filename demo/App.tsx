@@ -22,6 +22,7 @@ import {
   Tag,
   TaskRow,
   TextField,
+  TimeZoneCompare,
   ThemeProvider,
   Title,
   ToastProvider,
@@ -34,6 +35,7 @@ import {
   type SketchpadHandle,
   type Theme,
   type ToolKind,
+  type ZoneConfig,
 } from '../src'
 
 const LOCALE = 'pt-PT'
@@ -53,6 +55,7 @@ const tabs = [
   { id: 'tasks', label: 'Tarefas', icon: 'list' as const },
   { id: 'calendar', label: 'Calendário', icon: 'calendar' as const },
   { id: 'draw', label: 'Desenho', icon: 'pen' as const },
+  { id: 'zones', label: 'Fusos', icon: 'globe' as const },
   { id: 'basics', label: 'Básicos', icon: 'star' as const },
 ]
 
@@ -90,6 +93,7 @@ export function App() {
           {tab === 'tasks' && <TasksDemo />}
           {tab === 'calendar' && <CalendarDemo />}
           {tab === 'draw' && <DrawDemo />}
+          {tab === 'zones' && <ZonesDemo />}
           {tab === 'basics' && <BasicsDemo />}
         </div>
         <TabBar items={tabs} value={tab} onChange={setTab} position="fixed" />
@@ -413,6 +417,150 @@ function DrawDemo() {
         ]}
         value={paper}
         onChange={setPaper}
+      />
+    </section>
+  )
+}
+
+/* ---------- Fusos (estilo Overlap) ---------- */
+
+const ZONES_KEY = 'bonobo-ui-demo-zones'
+
+const firstZones: ZoneConfig[] = [
+  {
+    id: 'lis',
+    timeZone: 'Europe/Lisbon',
+    label: 'Lisboa',
+    start: 540,
+    end: 1080,
+    flex: 60,
+    color: colors.blue,
+  },
+  {
+    id: 'nyc',
+    timeZone: 'America/New_York',
+    label: 'Nova Iorque',
+    start: 540,
+    end: 1020,
+    flex: 60,
+    color: colors.orange,
+  },
+  {
+    id: 'sao',
+    timeZone: 'America/Sao_Paulo',
+    label: 'São Paulo',
+    start: 540,
+    end: 1080,
+    flex: 30,
+    color: colors.green,
+  },
+  {
+    id: 'tyo',
+    timeZone: 'Asia/Tokyo',
+    label: 'Tóquio',
+    start: 540,
+    end: 1080,
+    flex: 120,
+    color: colors.violet,
+  },
+]
+
+// Portuguese names for the search (the browser only knows IANA names).
+const ptAliases: Record<string, string> = {
+  Lisboa: 'Europe/Lisbon',
+  Porto: 'Europe/Lisbon',
+  Açores: 'Atlantic/Azores',
+  Madeira: 'Atlantic/Madeira',
+  Londres: 'Europe/London',
+  Madrid: 'Europe/Madrid',
+  Paris: 'Europe/Paris',
+  Berlim: 'Europe/Berlin',
+  Genebra: 'Europe/Zurich',
+  Luxemburgo: 'Europe/Luxembourg',
+  'Nova Iorque': 'America/New_York',
+  Toronto: 'America/Toronto',
+  'Los Angeles': 'America/Los_Angeles',
+  'São Paulo': 'America/Sao_Paulo',
+  'Rio de Janeiro': 'America/Sao_Paulo',
+  Luanda: 'Africa/Luanda',
+  Maputo: 'Africa/Maputo',
+  'Cabo Verde': 'Atlantic/Cape_Verde',
+  Bissau: 'Africa/Bissau',
+  'São Tomé': 'Africa/Sao_Tome',
+  Dubai: 'Asia/Dubai',
+  'Nova Deli': 'Asia/Kolkata',
+  Macau: 'Asia/Macau',
+  Pequim: 'Asia/Shanghai',
+  Díli: 'Asia/Dili',
+  Tóquio: 'Asia/Tokyo',
+  Sydney: 'Australia/Sydney',
+}
+
+function loadZones(): ZoneConfig[] {
+  try {
+    const saved = localStorage.getItem(ZONES_KEY)
+    if (saved) return JSON.parse(saved) as ZoneConfig[]
+  } catch {
+    // Private window or blocked storage: start with the defaults.
+  }
+  return firstZones
+}
+
+function ZonesDemo() {
+  const toast = useToast()
+  const [zones, setZones] = useState(loadZones)
+
+  const change = (next: ZoneConfig[]) => {
+    setZones(next)
+    try {
+      localStorage.setItem(ZONES_KEY, JSON.stringify(next))
+    } catch {
+      // Not saved; fine for a demo.
+    }
+  }
+
+  return (
+    <section className="demo__section">
+      <div className="demo__split">
+        <div>
+          <Eyebrow>Relógio mundial</Eyebrow>
+          <Title>Fusos horários</Title>
+        </div>
+        <Button variant="soft" size="sm" onClick={() => change(firstZones)}>
+          Repor
+        </Button>
+      </div>
+      <TimeZoneCompare
+        zones={zones}
+        onZonesChange={change}
+        aliases={ptAliases}
+        locale={LOCALE}
+        onShare={(text) => {
+          navigator.clipboard
+            ?.writeText(text)
+            .then(() => toast('Horas copiadas'))
+            .catch(() => toast('Não foi possível copiar'))
+        }}
+        labels={{
+          now: 'Agora',
+          fromNow: 'desde agora',
+          add: 'Juntar fuso',
+          search: 'Cidade ou fuso',
+          graph: 'Sobreposição',
+          date: 'Data',
+          share: 'Copiar horas',
+          edit: 'Editar fuso',
+          name: 'Nome',
+          from: 'Disponível das',
+          to: 'às',
+          flex: 'Margem',
+          none: 'Nenhuma',
+          home: 'Fuso de casa',
+          remove: 'Remover',
+          done: 'Feito',
+          noOverlap: 'Não há nenhuma hora boa para todos',
+          hint: 'Deslize para os lados para andar no tempo. Mantenha carregado num fuso para o encolher.',
+        }}
       />
     </section>
   )
