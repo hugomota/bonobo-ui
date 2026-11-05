@@ -15,6 +15,8 @@ export interface SheetProps {
   closeLabel?: string
   /** Wider panel on big screens (720 px instead of 560). */
   wide?: boolean
+  /** On phones, the whole screen instead of a sheet from the bottom. */
+  fullOnPhone?: boolean
   className?: string
 }
 
@@ -32,6 +34,7 @@ export function Sheet({
   footer,
   closeLabel = 'Close',
   wide,
+  fullOnPhone,
   className,
 }: SheetProps) {
   const panel = useRef<HTMLDivElement>(null)
@@ -70,7 +73,12 @@ export function Sheet({
         aria-labelledby={titleId}
         tabIndex={-1}
         aria-describedby={description ? descId : undefined}
-        className={cx('bn-sheet__panel', wide && 'bn-sheet__panel--wide', className)}
+        className={cx(
+          'bn-sheet__panel',
+          wide && 'bn-sheet__panel--wide',
+          fullOnPhone && 'bn-sheet__panel--full',
+          className,
+        )}
       >
         <span className="bn-sheet__grip" aria-hidden="true" />
         <header className="bn-sheet__head">

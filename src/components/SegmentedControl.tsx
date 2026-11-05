@@ -12,6 +12,8 @@ export interface SegmentedControlProps<T extends string> {
   onChange: (value: T) => void
   /** Group name for screen readers. */
   label: string
+  /** "lg": taller, bigger text (touch screens, kiosks). */
+  size?: 'md' | 'lg'
   className?: string
 }
 
@@ -21,6 +23,7 @@ export function SegmentedControl<T extends string>({
   value,
   onChange,
   label,
+  size = 'md',
   className,
 }: SegmentedControlProps<T>) {
   const name = useId()
@@ -32,7 +35,7 @@ export function SegmentedControl<T extends string>({
     <div
       role="radiogroup"
       aria-label={label}
-      className={cx('bn-segmented', className)}
+      className={cx('bn-segmented', size === 'lg' && 'bn-segmented--lg', className)}
       style={{ '--bn-seg-n': options.length, '--bn-seg-i': index } as CSSProperties}
     >
       <span className="bn-segmented__pill" aria-hidden="true" />

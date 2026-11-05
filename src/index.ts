@@ -31,6 +31,7 @@ export {
   type TextAreaProps,
   type SelectFieldProps,
 } from './components/TextField'
+export { SearchField, type SearchFieldProps } from './components/SearchField'
 export { Tag, type TagProps } from './components/Tag'
 export { Badge, type BadgeProps } from './components/Badge'
 export { Alert, type AlertProps } from './components/Alert'

@@ -12,7 +12,7 @@ export interface CardProps extends ComponentProps<'div'> {
   padding?: 'md' | 'sm' | 'none'
   tone?: Tone
   /** The element: a list item, an article, a link... (default div). */
-  as?: 'div' | 'li' | 'article' | 'section' | 'a'
+  as?: 'div' | 'li' | 'article' | 'section' | 'a' | 'button'
   href?: string
 }
 
