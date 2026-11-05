@@ -21,7 +21,8 @@
     "tailwind-preset.js"
   ],
   "sideEffects": [
-    "**/*.css"
+    "**/*.css",
+    "./src/index.ts"
   ],
   "scripts": {
     "dev": "vite --host",
