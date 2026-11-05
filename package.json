@@ -12,10 +12,13 @@
       "types": "./dist/types/index.d.ts",
       "import": "./dist/bonobo-ui.js"
     },
-    "./styles.css": "./dist/styles.css"
+    "./styles.css": "./dist/styles.css",
+    "./tailwind-preset": "./tailwind-preset.js"
   },
   "files": [
-    "dist"
+    "dist",
+    "src",
+    "tailwind-preset.js"
   ],
   "sideEffects": [
     "**/*.css"
@@ -57,5 +60,8 @@
     "typescript": "6.0.3",
     "typescript-eslint": "8.72.1",
     "vite": "8.3.5"
+  },
+  "dependencies": {
+    "@fontsource-variable/outfit": "5.2.8"
   }
 }

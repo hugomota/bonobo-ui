@@ -7,13 +7,12 @@
  */
 
 .bn-root {
-  /* Typography: thin, big numbers for display; system UI text elsewhere. */
+  /* Typography: Outfit (geometric, OFL, bundled with the library: nothing
+     loaded from the web), thin and big for numbers, system UI as fallback. */
   --bn-font:
-    ui-sans-serif, -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', Roboto,
+    'Outfit Variable', ui-sans-serif, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
     'Helvetica Neue', Arial, sans-serif;
-  --bn-font-display:
-    ui-sans-serif, -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', Roboto,
-    'Helvetica Neue', Arial, sans-serif;
+  --bn-font-display: var(--bn-font);
   --bn-text-xs: 0.75rem;
   --bn-text-sm: 0.875rem;
   --bn-text-md: 1rem;
@@ -54,6 +53,7 @@
   --bn-violet: #8a5cf6;
   --bn-pink: #ff6fb1;
   --bn-graphite: #4b4b52;
+  --bn-tomato: #ff5a3c;
 
   /* Derived colours: mixed from background (bg) and text (fg). */
   --bn-fg-muted: color-mix(in srgb, var(--bn-fg) 62%, var(--bn-bg));
